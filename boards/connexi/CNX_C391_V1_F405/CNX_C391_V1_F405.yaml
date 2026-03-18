@@ -1,0 +1,24 @@
+identifier: CNX_C391_V1_F405
+name: Connexi CNX-C391-F405
+type: mcu
+arch: arm
+toolchain:
+  - zephyr
+  - gnuarmemb
+  - xtools
+supported:
+  - i2c
+  - pwm
+  - counter
+  - gpio
+  - spi
+  - nvs
+  - adc
+  - dac
+  - dma
+  - rtc
+  - usbd
+  - watchdog
+ram: 96
+flash: 1024
+vendor: connexi
