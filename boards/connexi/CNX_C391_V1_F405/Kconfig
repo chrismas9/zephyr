@@ -1,0 +1,12 @@
+# Connexi CNX-C391-V1_F405 board configuration
+
+# Copyright (c) 2025 In Chip Design (Aust) P/L.
+# SPDX-License-Identifier: Apache-2.0
+
+if BOARD_CNX_C391_V1_F405
+
+config BOARD_SERIAL_BACKEND_CDC_ACM
+	bool "USB CDC console"
+	default y
+
+endif # BOARD_CNX_C391_V1_F405

@@ -1,0 +1,6 @@
+board:
+  name: CNX_C391_V1_L496
+  full_name: Connexi CNX L496
+  vendor: Connexi
+  socs:
+    - name: stm32L496xx

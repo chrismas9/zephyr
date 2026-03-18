@@ -1,0 +1,54 @@
+# Connexi CNX-C391-V1_L496 board configuration
+
+# Copyright (c) 2024 STMicroelectronics
+# Copyright (c) 2025 In Chip Design (Aust) P/L.
+# SPDX-License-Identifier: Apache-2.0
+
+if BOARD_CNX_C391_V1_L496
+
+config SPI_STM32_INTERRUPT
+	default y
+	depends on SPI
+
+if BOARD_SERIAL_BACKEND_CDC_ACM
+
+config USB_DEVICE_STACK
+	default y
+
+config USB_CDC_ACM
+	default SERIAL
+
+config USB_DEVICE_INITIALIZE_AT_BOOT
+	default y if CONSOLE
+
+config SHELL_BACKEND_SERIAL_CHECK_DTR
+	default SHELL
+	depends on UART_LINE_CTRL
+
+config UART_LINE_CTRL
+	default SHELL
+
+config USB_DEVICE_REMOTE_WAKEUP
+	default n
+
+config USB_DEVICE_VID
+	default 0x0483
+
+config USB_DEVICE_PID
+	default 0x5740
+
+config USB_DEVICE_PRODUCT
+	default "Zephyr CDC CNX-C391-V1_L496"
+
+if LOG
+
+# Logger cannot use itself to log
+choice USB_CDC_ACM_LOG_LEVEL_CHOICE
+	default USB_CDC_ACM_LOG_LEVEL_OFF
+endchoice
+
+endif # LOG
+
+endif # BOARD_SERIAL_BACKEND_CDC_ACM
+
+endif # BOARD_CNX_C391_V1_L496

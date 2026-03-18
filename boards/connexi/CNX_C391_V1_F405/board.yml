@@ -1,0 +1,6 @@
+board:
+  name: CNX_C391_V1_F405
+  full_name: Connexi CNX F405
+  vendor: Connexi
+  socs:
+    - name: stm32f405xx
