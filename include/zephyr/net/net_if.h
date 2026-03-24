@@ -1135,6 +1135,26 @@ static inline struct net_offload *net_if_offload(struct net_if *iface)
 }
 
 /**
+ * @brief Set the IP offload plugin
+ *
+ * @param iface Network interface
+ * @param offload Offload plugin to set
+ */
+static inline void net_if_offload_set(struct net_if *iface, struct net_offload *offload)
+{
+#if defined(CONFIG_NET_OFFLOAD)
+	if (iface == NULL || iface->if_dev == NULL) {
+		return;
+	}
+
+	iface->if_dev->offload = offload;
+#else
+	ARG_UNUSED(iface);
+	ARG_UNUSED(offload);
+#endif
+}
+
+/**
  * @brief Return the socket offload status
  *
  * @param iface Network interface
@@ -2976,8 +2996,18 @@ enum net_if_checksum_type {
  *
  * @return True if checksum needs to be calculated, false otherwise.
  */
+#if defined(CONFIG_NET_CHECKSUM_OFFLOAD)
 bool net_if_need_calc_rx_checksum(struct net_if *iface,
 				  enum net_if_checksum_type chksum_type);
+#else /* CONFIG_NET_CHECKSUM_OFFLOAD */
+static inline bool net_if_need_calc_rx_checksum(struct net_if *iface,
+						enum net_if_checksum_type chksum_type)
+{
+	ARG_UNUSED(iface);
+	ARG_UNUSED(chksum_type);
+	return true;
+}
+#endif /* CONFIG_NET_CHECKSUM_OFFLOAD */
 
 /**
  * @brief Check if network packet checksum calculation can be avoided or not
@@ -2990,8 +3020,18 @@ bool net_if_need_calc_rx_checksum(struct net_if *iface,
  *
  * @return True if checksum needs to be calculated, false otherwise.
  */
+#if defined(CONFIG_NET_CHECKSUM_OFFLOAD)
 bool net_if_need_calc_tx_checksum(struct net_if *iface,
 				  enum net_if_checksum_type chksum_type);
+#else /* CONFIG_NET_CHECKSUM_OFFLOAD */
+static inline bool net_if_need_calc_tx_checksum(struct net_if *iface,
+						enum net_if_checksum_type chksum_type)
+{
+	ARG_UNUSED(iface);
+	ARG_UNUSED(chksum_type);
+	return true;
+}
+#endif /* CONFIG_NET_CHECKSUM_OFFLOAD */
 
 /**
  * @brief Get interface according to index
